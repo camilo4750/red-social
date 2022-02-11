@@ -1,17 +1,18 @@
 "use strict";
-
-let User = require("../models/user");
-let Follow = require("../models/follow");
 let Bcrypt = require("bcrypt-nodejs");
 let Jwt = require("../services/jwt");
 let MongoosePagination = require("mongoose-pagination");
 let Fs = require("fs");
 let Path = require("path");
+
+let User = require("../models/user");
+let Follow = require("../models/follow");
+let Publication = require("../models/publication");
+
 const user = require("../models/user");
 const { exists, validate } = require("../models/user");
 const { path } = require("../app");
 const follow = require("../models/follow");
-const { match } = require("assert");
 
 function home(req, res) {
   res.status(200).send({
@@ -309,34 +310,50 @@ async function usersFollowIds(userIdentity) {
 
 function getCounters(req, res) {
   let userId = req.user.sub;
-  
-  if(req.params.id) {
+
+  if (req.params.id) {
     userId = req.params.id;
   }
 
   getCountFollow(userId).then((value) => {
     return res.status(200).send(value);
-  })
+  });
 }
 
 async function getCountFollow(userId) {
-  var following = await Follow.countDocuments({ "user": userId })
-      .exec()
-      .then((count) => {
-          console.log(count);
-          return count;
-      })
-      .catch((err) => { return handleError(err); });
+  let following = await Follow.countDocuments({ user: userId })
+    .exec()
+    .then((count) => {
+      console.log(count);
+      return count;
+    })
+    .catch((err) => {
+      return handleError(err);
+    });
 
-  var followed = await Follow.countDocuments({ "followed": userId })
-      .exec()
-      .then((count) => {
-          return count;
-      })
-      .catch((err) => { return handleError(err); });
+  let followed = await Follow.countDocuments({ followed: userId })
+    .exec()
+    .then((count) => {
+      return count;
+    })
+    .catch((err) => {
+      return handleError(err);
+    });
 
-  return { following: following, followed: followed }
+  let publications = await Publication.countDocuments({ user: userId })
+    .exec()
+    .then((count) => {
+      return count;
+    })
+    .catch((err) => {
+      return handleError(err);
+    });
 
+  return {
+    following: following,
+    followed: followed,
+    publications: publications,
+  };
 }
 
 module.exports = {
@@ -348,5 +365,5 @@ module.exports = {
   getImage,
   getUser,
   getUsers,
-  getCounters
+  getCounters,
 };
