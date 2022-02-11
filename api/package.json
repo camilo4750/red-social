@@ -1,0 +1,25 @@
+{
+  "name": "red-social",
+  "version": "1.0.0",
+  "description": "\"Creacion de una red social utilizando tencnologias como: Angular para el Front-End, Node.js para el Back-End con Express y MongoDB como base de datos\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Camilo Andres Alarcon Cardenas",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.1",
+    "connect-multiparty": "^2.2.0",
+    "express": "^4.17.2",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.29.1",
+    "mongoose": "^6.1.6",
+    "mongoose-pagination": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
