@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row  d-flex justify-content-center">
+        <div class="col-xs-12 col-md-6 mb-2 order-2">
+            <h1>{{title}}</h1>
+            <hr>
+            <div class="alert alert-success" *ngIf="status == 'success'">
+                El registro se ha realizado correctamente <a [routerLink]="['/login']">Inicia Session Aquí</a>
+            </div>
+            <div class="alert alert-danger" *ngIf="status == 'error'">
+                El registro no se ha podido realizar, tu Nickname o Email lo usa algun otro usuario, intenta con otros
+                datos
+            </div>
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <b *ngIf="!name.valid && name.touched" class="text-danger mb-1"> El nombre es un campo
+                    obligatorio..!!</b>
+                <div class="form-floating mb-3">
+                    <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control"
+                        placeholder="My name is" required>
+                    <label for="floatingInput">Name</label>
+                </div>
+                <b *ngIf="!surname.valid && surname.touched" class="text-danger mb-1"> El Apellido es un campo
+                    obligatorio..!!</b>
+                <div class="form-floating mb-3">
+                    <input type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" class="form-control"
+                        placeholder="my surname is" required>
+                    <label for="floatingInput">Surname</label>
+                </div>
+                <b *ngIf="!nick.valid && nick.touched" class="text-danger mb-1"> El nick es un campo obligatorio..!!</b>
+                <div class="form-floating mb-3">
+                    <input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control"
+                        placeholder="my nickname is" required>
+                    <label for="floatingInput">NickName</label>
+                </div>
+                <b *ngIf="!email.valid && email.touched" class="text-danger mb-1"> El Email es un campo
+                    obligatorio..!!</b>
+                <div class="form-floating mb-3">
+                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" #email="ngModel"
+                        [(ngModel)]="user.email" class="form-control" placeholder="my email is" required>
+                    <label for="floatingInput">Email</label>
+                </div>
+                <b *ngIf="!password.valid && password.touched" class="text-danger mb-1"> El Password es un campo
+                    obligatorio..!!</b>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password"
+                        class="form-control" placeholder="my email is" required>
+                    <label for="floatingInput">Password</label>
+                </div>
+                <div class="d-grid gap-2">
+                    <input type="submit" value="{{title}}" class="btn btn-success"
+                        [disabled]="!registerForm.form.valid" />
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-12 col-md-6 p-0 d-flex align-items-center order-1">
+            <img src="../../../assets/img/Register.png" class="img-fluid rounded" alt="">
+        </div>
+    </div>
+</div>

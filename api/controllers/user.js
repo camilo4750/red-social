@@ -93,7 +93,7 @@ function login(req, res) {
           }
         } else {
           user.password = undefined;
-          return res.status(200).send(user);
+          return res.status(404).send({ message: "Contraseña Incorrecta" });
         }
       });
     } else {

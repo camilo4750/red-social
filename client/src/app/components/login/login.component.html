@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row rounded mt-5 shadow d-flex justify-content-center">
+
+        <div class="col-sm-12 col-md-6 p-0">
+            <img src="../../../assets/img/social.jpg" class="img-fluid rounded" alt="">
+        </div>
+        <div class="col-sm-12 col-md-6 p-3 align-self-center">
+            <h2 class="text-uppercase text-center">{{title}}</h2>
+            <div class="alert alert-danger text-center" *ngIf="status == 'error'">
+                <b>Email o Contraseña incorrectos intente de nuevo</b>
+            </div>
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                <b class="text-danger" *ngIf="!email.valid && email.touched">El campo email no es valido esta
+                    incompleto..!</b>
+                <div class="form-floating mb-3">
+                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" #email="ngModel"
+                        [(ngModel)]="user.email" class="form-control" placeholder="my email is" required>
+                    <label for="floatingInput">Email</label>
+                </div>
+                <b class="text-danger" *ngIf="!email.valid && email.touched">La contraseña no es valida..!</b>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password"
+                        class="form-control" placeholder="my email is" required>
+                    <label for="floatingInput">Password</label>
+                </div>
+                <div class="d-grid gap-2">
+                    <input type="submit" value="Ingresar" class="btn btn-success" [disabled]="!loginForm.form.valid" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
